@@ -1,0 +1,35 @@
+{
+  "name": "cllctv",
+  "version": "1.0.0",
+  "description": "BRAND NEW FUCKING AWESOME cllctv.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aodnawg/cllctv.git"
+  },
+  "author": "aodnawg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aodnawg/cllctv/issues"
+  },
+  "homepage": "https://github.com/aodnawg/cllctv#readme",
+  "dependencies": {
+    "emotion": "^10.0.27",
+    "next": "^9.3.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "@emotion/core": "^10.0.28",
+    "@types/node": "^13.9.1",
+    "@types/react": "^16.9.23",
+    "babel-plugin-emotion": "^10.0.29",
+    "prettier": "1.19.1",
+    "typescript": "^3.8.3"
+  }
+}
