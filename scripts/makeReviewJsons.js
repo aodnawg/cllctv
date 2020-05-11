@@ -25,18 +25,20 @@ const getMetaJson = () => {
   return JSON.parse(removeInvalidChar(jsonRaw));
 };
 
+const metakeys = [
+  "article",
+  "artist",
+  "album",
+  "albumImage",
+  "release",
+  "trackList",
+  "amazon",
+];
+
 const getMeta = () => {
   const metaMap = getMetaJson();
-  const keys = [
-    "article",
-    "artist",
-    "album",
-    "albumImage",
-    "release",
-    "trackList",
-    "amazon",
-  ];
-  const result = keys.map((k) =>
+
+  const result = metakeys.map((k) =>
     metaMap
       .filter((r) => r.meta_key === k)
       .map(({ post_id, meta_value }) => ({
@@ -44,17 +46,25 @@ const getMeta = () => {
         text: meta_value,
       }))
   );
-  return [keys, result];
+  return [metakeys, result];
 };
 
+const postkeys = ["id", "title", "author", "data"];
+
 const arrengePost = (post) => {
+  const [id, title, author, date] = postkeys;
   const { ID, post_title, post_author, post_date } = post;
-  return { id: ID, title: post_title, author: post_author, date: post_date };
+  return {
+    [id]: ID,
+    [title]: post_title,
+    [author]: post_author,
+    [date]: post_date,
+  };
 };
 
 const getPosts = () => {
   const jsonRaw = fs.readFileSync(
-    path.resolve(__dirname, "..", "assets", `${postRaw}.json`),
+    path.resolve(__dirname, "..", "posts", "rawData", `${postRaw}.json`),
     encording
   );
   const posts = JSON.parse(removeInvalidChar(jsonRaw)).filter(
@@ -79,15 +89,23 @@ const makeReviewMaps = () => {
   const posts = getPosts();
   const metas = getMeta(); // [key[], value[]]
   const result = bindPostAndMeta(posts, metas);
+
+  // tests
+  result.forEach((r) => {
+    const keys = [...metakeys, ...postkeys];
+    keys.forEach((k) =>
+      assert(k in r, `[*] failed: property ${k} does not exist in ${r.id}`)
+    );
+  });
   return result;
 };
 
 const writeJson = (target) => {
   const name = `${target.id}.json`;
   const filePath = path.resolve(__dirname, "..", "posts", "reviews", name);
-  const content = JSON.stringify(target);
+  const content = JSON.stringify(target) + "\n";
   fs.writeFileSync(filePath, content, encording);
-  console.log(`[*] done: ${filePath}`);
+  console.log(`[*] done. id: ${target.id}, path:${filePath}`);
   return filePath;
 };
 
@@ -95,15 +113,12 @@ const makeReviewJsons = () => {
   const reviewMaps = makeReviewMaps();
 
   const result = reviewMaps.map((review) => {
-    writeJson(review);
+    return writeJson(review);
   });
 
   // test
   result.forEach((path) => {
-    assert(
-      fs.existsSync(path),
-      console.log(`[*] failed: ${path} does not exist.`)
-    );
+    assert(fs.existsSync(path), `[*] failed: ${path} does not exist.`);
   });
 };
 
