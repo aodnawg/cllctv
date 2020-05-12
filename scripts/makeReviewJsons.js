@@ -1,3 +1,16 @@
+// @ts-check
+
+/**
+ * @typedef {object} ReviewPost
+ * @property {number} id
+ * @property {string} title
+ * @property {string} date
+ * @property {number} author
+ * @property {string} article
+ * @property {string} artist
+ * @property {string} album
+ */
+
 const fs = require("fs");
 const path = require("path");
 const assert = require("assert");
@@ -62,6 +75,18 @@ const arrengePost = (post) => {
   };
 };
 
+/**
+ * @param {ReviewPost} post
+ */
+const testEachDateOfReview = (post) => {
+  const { id, date } = post;
+  const test =
+    date.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/) !==
+    null;
+  assert(test, `[*] reviewPost (${id}) has invalid date (${date})`);
+  return post;
+};
+
 const getPosts = () => {
   const jsonRaw = fs.readFileSync(
     path.resolve(__dirname, "..", "posts", "rawData", `${postRaw}.json`),
@@ -70,7 +95,7 @@ const getPosts = () => {
   const posts = JSON.parse(removeInvalidChar(jsonRaw)).filter(
     (r) => r.post_type === "reviews"
   );
-  return posts.map(arrengePost);
+  return posts.map(arrengePost).map(testEachDateOfReview);
 };
 
 const bindPostAndMeta = (posts, metas) => {
