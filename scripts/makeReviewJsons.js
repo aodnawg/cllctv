@@ -49,7 +49,7 @@ const getMeta = () => {
   return [metakeys, result];
 };
 
-const postkeys = ["id", "title", "author", "data"];
+const postkeys = ["id", "title", "author", "date"];
 
 const arrengePost = (post) => {
   const [id, title, author, date] = postkeys;
@@ -111,11 +111,9 @@ const writeJson = (target) => {
 
 const makeReviewJsons = () => {
   const reviewMaps = makeReviewMaps();
-
   const result = reviewMaps.map((review) => {
     return writeJson(review);
   });
-
   // test
   result.forEach((path) => {
     assert(fs.existsSync(path), `[*] failed: ${path} does not exist.`);
