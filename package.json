@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/aodnawg/cllctv#readme",
   "dependencies": {
+    "@emotion/styled": "^10.0.27",
     "emotion": "^10.0.27",
     "next": "^9.4.0",
     "react": "^16.13.0",
