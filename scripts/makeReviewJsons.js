@@ -6,7 +6,7 @@
  * @property {string} title
  * @property {string} date
  * @property {number} author
- * @property {string} article
+ * @property {string} content
  * @property {string} artist
  * @property {string} album
  */
@@ -110,6 +110,10 @@ const bindPostAndMeta = (posts, metas) => {
   });
 };
 
+const reshapeReviewKeys = ({ article, ...rest }) => {
+  return { ...rest, content: article };
+};
+
 const makeReviewMaps = () => {
   const posts = getPosts();
   const metas = getMeta(); // [key[], value[]]
@@ -122,7 +126,7 @@ const makeReviewMaps = () => {
       assert(k in r, `[*] failed: property ${k} does not exist in ${r.id}`)
     );
   });
-  return result;
+  return result.map(reshapeReviewKeys);
 };
 
 const writeJson = (target) => {
