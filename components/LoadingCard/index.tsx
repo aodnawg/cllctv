@@ -15,30 +15,33 @@ const StyledCardImage = styled.div<{ hash: number }>`
   margin-bottom: 16px;
 `;
 
-const Title = styled.h2`
-  font-size: 0.9rem;
-  line-height: 1.5;
+const Title = styled.div`
+  background-color: #eeeeee;
+  font-size: 0.8rem;
+  height: 20px;
+  width: 80%;
   margin-bottom: 12px;
 `;
 
-const Datetime = styled.div`
-  color: #888888;
-  font-size: 0.8rem;
-  text-align: right;
+const DatetimeWrapper = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
 `;
 
-export interface CardProps {
-  title: string;
-  date: string;
-  id: number;
-}
+const Datetime = styled.div`
+  background-color: #eeeeee;
+  width: 60%;
+  height: 18px;
+`;
 
-export const Card: React.FC<CardProps> = ({ title, date }) => {
+export const LoadingCard: React.FC = () => {
   return (
     <StyledCard>
       <StyledCardImage hash={Math.random()} />
-      <Title>{title}</Title>
-      <Datetime>{date}</Datetime>
+      <Title />
+      <DatetimeWrapper>
+        <Datetime />
+      </DatetimeWrapper>
     </StyledCard>
   );
 };
