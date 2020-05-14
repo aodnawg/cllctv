@@ -16,7 +16,9 @@ const StyledHeader = styled.header`
 export const Header = () => {
   return (
     <StyledHeader>
-      <Link href="/">cllctv.</Link>
+      <Link href="/">
+        <a>cllctv.</a>
+      </Link>
     </StyledHeader>
   );
 };
