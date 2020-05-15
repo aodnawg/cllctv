@@ -24,7 +24,12 @@ export const LoadingPage = React.forwardRef<HTMLDivElement>((_, ref) => (
   </Gird>
 ));
 
-export const Page: React.FC<{ list: CardProps[] }> = ({ list }) => {
+export interface PageProps {
+  list: CardProps[];
+  key: number;
+}
+
+export const Page: React.FC<PageProps> = ({ list }) => {
   console.log("render");
   return (
     <Gird>
