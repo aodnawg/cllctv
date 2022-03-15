@@ -21,7 +21,7 @@
   "dependencies": {
     "@emotion/styled": "^10.0.27",
     "emotion": "^10.0.27",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "next": "^9.4.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
